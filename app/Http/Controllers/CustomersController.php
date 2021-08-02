@@ -54,4 +54,22 @@ class CustomersController extends Controller
             'customer' => Customer::find($id)
         ]);
     }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->validate([
+            'name' => 'required|max:255',
+            'cpf' =>  'required',
+            'email' => 'required|email|max:255|unique:customers,email,' . $id,
+            'telefone' => 'required'
+        ]);
+        $customer = Customer::findOrFail($id);
+
+        $customer->update($data);
+
+        return redirect()->route('customers.index')->with(
+            'success',
+            'Cliente atualizado com sucesso'
+        );
+    }
 }
