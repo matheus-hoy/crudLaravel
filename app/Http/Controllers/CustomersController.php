@@ -27,7 +27,7 @@ class CustomersController extends Controller
     {
         return view("customers.index", [
             'title' => 'Listar Clientes',
-            'customers' => Customer::paginate(4)
+            'customers' => Customer::simplePaginate(4)
         ]);
     }
 
